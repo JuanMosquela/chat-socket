@@ -4,6 +4,7 @@ import http from 'http'
 import { PORT } from './config.js'
 import cors from 'cors'
 
+
 const app = express()
 const httpServer = http.createServer(app)
 const io = new Server(httpServer, {
@@ -14,8 +15,15 @@ const io = new Server(httpServer, {
 app.use(cors())
 
 
-io.on('connection', (client) => {
-    console.log(`cliente ${client.id} conectado`)
+io.on('connection', (client) => {    
+    client.on('message', (message) => {
+        client.broadcast.emit('message', {
+            body: message,
+            from: client.id
+        })       
+
+    })
+    
 })
 
 httpServer.listen(PORT, () => {
