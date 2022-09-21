@@ -4,6 +4,8 @@ import http from 'http'
 import { PORT } from './config.js'
 import cors from 'cors'
 
+ const dataMessages = []
+
 
 const app = express()
 const httpServer = http.createServer(app)
@@ -15,14 +17,32 @@ const io = new Server(httpServer, {
 app.use(cors())
 
 
-io.on('connection', (client) => {    
-    client.on('message', (message) => {
+io.on('connection', (client) => {
+    
+
+
+    client.on('disconnect', (client) => {
+       
+        console.log('cliente desconectado')
+    })
+    
+    
+
+    client.on('message', (mensaje) => {
+
+        dataMessages.push(mensaje)
+
+        console.log(dataMessages)
+        
         client.broadcast.emit('message', {
-            body: message,
-            from: client.id
-        })       
+            body: mensaje.body,
+            from: mensaje.from
+        })  
+        
 
     })
+
+    client.emit('signin', dataMessages)
     
 })
 
