@@ -97,7 +97,7 @@ function App() {
         {!isLogged ? (
           <>
             <input type="text" onChange={(e) => setUser(e.target.value)} placeholder='Ingresa tu nombre' required/>
-            <button type="submit" onClick={() => handleLogged()}>Enviar</button>
+            <button type="submit" onClick={() => handleLogged()}>Ingresar</button>
           </>
 
         ): (
