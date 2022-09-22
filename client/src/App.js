@@ -87,7 +87,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Chat con Socket IO</h1>
+     
 
       
       <form onSubmit={(e) => handleSubmit(e)} >
