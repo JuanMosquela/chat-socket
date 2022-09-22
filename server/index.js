@@ -13,7 +13,7 @@ console.log(__dirname)
 const httpServer = http.createServer(app)
 const io = new Server(httpServer, {
     cors:{
-        origin: 'http://localhost:3000'
+        // origin: 'http://localhost:3000'
     }
 })
 app.use(cors())
