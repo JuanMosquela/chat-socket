@@ -2,7 +2,7 @@ import './App.css';
 import io from 'socket.io-client'
 import { useEffect, useState } from 'react';
 
-const socket = io()
+const socket = io('http://localhost:4000')
 
 function App() {
 
@@ -95,15 +95,17 @@ function App() {
         
 
         {!isLogged ? (
-          <>
+          <div className='container-login'>
             <input type="text" onChange={(e) => setUser(e.target.value)} placeholder='Ingresa tu nombre' required/>
             <button type="submit" onClick={() => handleLogged()}>Ingresar</button>
-          </>
+          </div>
 
         ): (
-          <>
-            <button type="submit">Enviar</button>
-            <input type="text" value={message} onChange={e => setMessage(e.target.value)} placeholder='Ingrese un mensaje'  />
+          <div className='chat-room'>
+            <div className="container-controlls">
+              <input type="text" value={message} onChange={e => setMessage(e.target.value)} placeholder='Ingrese un mensaje'  />
+              <button type="submit">Enviar</button>
+            </div>
 
             <ul className="messages-container">
             {messages.map((message,index) => (
@@ -121,7 +123,7 @@ function App() {
               ))}       
               </ul>
               
-          </>
+          </div>
 
         )}
         
