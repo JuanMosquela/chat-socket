@@ -2,14 +2,48 @@
   text-align: center;
   display: flex;
   justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  
+  
   list-style: none;
   min-height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
   
+  padding: 0 5%;
+  gap: 5rem;
+  overflow: hidden;
+  
+}
+
+form{
+  min-height: 100vh;
+}
+
+.form-product{
+  flex: 1;
+  
+  
+}
+
+.form-product input{
+  border: 1px solid #ccc;
+  background-color: rgba(204, 204, 204, 0.473);
+}
+
+.form-product table{
+  width: 100%;
+}
+
+.form-product tr:first-child{
+  width: 100%;
+  
+  background-color: #000;
+  color: #FFF;
+  
+}
+
+.form-product table th{
+  border: 1px solid #ccc;
 }
 
 
@@ -17,19 +51,25 @@
 
 
 
-form{
+.form-chat{
+  flex: 1;
   background-color: #282c34;
   height: 600px;
   width: 400px;
   padding: 10px;
   display: flex;
-  align-items: center;
-  justify-content: center;
   flex-direction: column-reverse;
+  align-items: center;
+  justify-content: center; 
   
+  flex-direction: column;  
   gap: .5rem;
   
 }
+
+
+
+
 
 form .container-login{
   display: flex;
@@ -38,6 +78,11 @@ form .container-login{
   gap: 1rem;
   width: 60%;
   
+}
+
+.container-controlls.products{
+  display: flex;
+  flex-direction: column;
 }
 
 

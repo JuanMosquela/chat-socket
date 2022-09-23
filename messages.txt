@@ -1,0 +1,1 @@
+[{"body":"funciona?","from":"Juan"},{"body":"funciona?","from":"Juan"},{"body":"parece","from":"Martin"}]
