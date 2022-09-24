@@ -1,1 +1,1 @@
-[{"body":"funciona?","from":"Juan"},{"body":"funciona?","from":"Juan"},{"body":"parece","from":"Martin"}]
+[{"body":"Hola mundo","from":"Juan"},{"body":"Buenas","from":"Matias"},{"body":"Funca el chat","from":"Ignacio"}]

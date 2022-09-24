@@ -16,7 +16,7 @@ const readFiles = async(file) => {
         const fileData = await fs.promises.readFile(file, "utf-8")
          
         const array = JSON.parse(fileData)        
-        array.forEach(message => dataMessages.push(message))
+        array.forEach(message => fileData === "./messages.txt" ? dataMessages.push(message) : dataProducts.push(message))
              
        
         

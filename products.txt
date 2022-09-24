@@ -1,1 +1,1 @@
-[]
+[{"title":"Plancha","price":"1000"},{"title":"mancuerna","price":"2000"},{"title":"heladera","price":"20000"}]
