@@ -1,1 +1,0 @@
-[{"body":"Hola mundo","from":"Juan"},{"body":"Buenas","from":"Matias"},{"body":"Funca el chat","from":"Ignacio"}]

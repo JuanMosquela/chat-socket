@@ -6,36 +6,13 @@ import cors from 'cors';
 import {dirname, join} from 'path'
 import { fileURLToPath } from 'url';
 import fs, { readFile } from 'fs'
-
-const dataMessages = [];
-const dataProducts = [];
-//READ MESSAGES
-
-const readFiles = async(file) => {
-    try {
-        const fileData = await fs.promises.readFile(file, "utf-8")
-         
-        const array = JSON.parse(fileData)        
-        array.forEach(message => fileData === "./messages.txt" ? dataMessages.push(message) : dataProducts.push(message))
-             
-       
-        
-    } catch (error) {
-        console.log(error)
-        
-    }
-
-}
-
-console.log(dataMessages)
-
-
-
+import knex from 'knex'
 
 
 
 
 //SAVE MESSAGES
+
 const save = async (data, file) => {
     try {
         const writteMessages = await fs.promises.writeFile(file, JSON.stringify(data))
@@ -50,7 +27,6 @@ const save = async (data, file) => {
 
 const app = express()
 const __dirname = dirname(fileURLToPath(import.meta.url))
-console.log(__dirname)
 const httpServer = http.createServer(app)
 const io = new Server(httpServer, {
     cors:{
@@ -61,18 +37,26 @@ app.use(cors())
 
 io.on('connection', (socket) => {
 
-    readFiles("./messages.txt")
-    readFiles("./products.txt")
+    const msg = 'SELECT * FROM messages';
+    db.query(msg, (err, dataMessages) => {
+        if(err) return res.json(err)
+        socket.emit('loadMessages', dataMessages)
+    })
 
-    socket.emit('loadMessages', dataMessages)    
-    socket.emit('loadProducts', dataProducts)
-    
+    const products = 'SELECT * FROM products';
+    db.query(products, (err, dataProducts) => {
+        if(err) return res.json(err)
+        socket.emit('loadProducts', dataProducts)
+    })    
 
-    socket.on('message', (mensaje) => {
-
-        dataMessages.push(mensaje) 
-        console.log(dataMessages)
-        save(dataMessages, "./messages.txt");      
+    socket.on('message', (mensaje) => {        
+        
+        const q = "INSERT INTO messages (description) VALUES (?)"
+        const message = req.body.message ;
+        db.query(q, message, (err,data) => {
+            if(err) return res.json(err)
+            return res.json(data)
+        })
         
         socket.broadcast.emit('message', {
             body: mensaje.body,
@@ -81,13 +65,16 @@ io.on('connection', (socket) => {
     })
 
     socket.on('products', (products) => {
-        dataProducts.push(products)
-        console.log(dataProducts)
-        save(dataProducts, "./products.txt"); 
-        
-        socket.broadcast.emit('product', {
-            title: products.title,
-            price: products.price
+        const q = "INSERT INTO products (name, description, price, img) VALUES (?)"
+        const values = [
+            req.body.name,
+            req.body.description,
+            req.body.price,
+            req.body.img
+        ];
+        db.query(q, [values], (err,data) => {
+            if(err) return res.json(err)
+            return res.json(data)
         })
     })
 
